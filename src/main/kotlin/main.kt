@@ -1,4 +1,3 @@
-import java.lang.Math.random
 import java.util.*
 
 fun main(args: Array<String>) {
@@ -20,6 +19,18 @@ fun main(args: Array<String>) {
     println(whatShouldIDoToday("happy"))
     println(whatShouldIDoToday("happy", temperature = 39))
 
+    spices()
+
+    repeat(3){ index ->
+        println("$index ${rollDice(12)}")
+    }
+
+    repeat(3){ index ->
+        println("$index ${rollDice2(6)}")
+    }
+}
+
+fun spices() {
     val spices = listOf("curry", "pepper", "cayenne", "ginger", "red curry", "green curry", "red pepper" )
 
     println(spices.filter { it.toLowerCase().contains("curry") }.sortedBy { s: String -> s.length })
@@ -29,13 +40,26 @@ fun main(args: Array<String>) {
     println(spices.filterIndexed { index, s -> index in 0..2 && s.startsWith('c') })
 
     println(spices.take(3).filter{it.startsWith('c')})
+}
 
-    val random1 = random()
-    val random2 = {random()}
+/*
+Create a lambda and assign it to rollDice, which returns a dice roll (number between 1 and 12).
 
-    println(random1)
-    println(random2)
+Extend the lambda to take an argument indicating the number of sides of the dice used for the roll.
 
+If you haven't done so, fix the lambda to return 0 if the number of sides passed in is 0.
+
+Create a new variable, rollDice2, for this same lambda using the function type notation.
+*/
+
+val rollDice = { numberOfSides:Int ->
+    if (numberOfSides != 0) Random().nextInt(numberOfSides) + 1
+    else 0
+}
+
+val rollDice2 :(Int) -> Int= { numberOfSides ->
+    if (numberOfSides != 0) Random().nextInt(numberOfSides) + 1
+    else 0
 }
 
 fun whatShouldIDoToday(mood:String, weather:String="Sunny", temperature:Int=24):String {
